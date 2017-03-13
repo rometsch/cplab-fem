@@ -1,4 +1,4 @@
-%% Eigenwertproblem f?r alle Geometrien l?sen
+%% Eigenwertproblem fuer alle Geometrien loesen
 files = {'Kreis_13.asc',...
         'Kreis_201.asc',...
         'RechteckPi_1054.asc',...
@@ -6,13 +6,18 @@ files = {'Kreis_13.asc',...
         'TrommelA_319.asc',...
         'TrommelB_321.asc',...
         'Violine_508.asc',...
-        'Violine_65.asc' };
-  for n = 1:length(files)
-      fem_solve_grid(['Finite_Elemente/',files{n}],1);
-  end
+        'Violine_65.asc'};
   
-%% L?sungen der Rechtecke mit FEM Ergebnissen vergleichen
+%% Loesungen der Rechtecke mit FEM Ergebnissen vergleichen
 
-solR200 = fem_solve_grid('Finite_Elemente/RechteckPi_200.asc',0);
-solR1054 = fem_solve_grid('Finite_Elemente/RechteckPi_1054.asc',0);
+R_klein_EW = fem_solve_grid('Finite_Elemente/RechteckPi_200.asc',0);
+R_gross_EW = fem_solve_grid('Finite_Elemente/RechteckPi_1054.asc',0);
 
+ana_EW = [0;-1;-1;-2;-4;-4;-5;-5;-8];
+
+%% Plot EWs
+fig = figure();
+hold on;
+plot(abs(R_klein_EW-ana_EW));
+plot(abs(R_gross_EW-ana_EW));
+hold off;

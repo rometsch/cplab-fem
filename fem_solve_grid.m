@@ -1,11 +1,10 @@
-function [] = fem_solve_grid(filename)
-%FEN_SOLVE_GRID L?st das Eigenwertproblem auf der in filename gegebenen
+function [EigVals] = fem_solve_grid(filename,plot)
+%FEM_SOLVE_GRID Loest das Eigenwertproblem auf der in filename gegebenen
 %Geometrie und stellt die Eigenfunctionen zu den kleinsten 9 Eigenwerten
 %graphisch dar.
     % Definiere Parameter
     N_eigenvals = 9;
-
-
+    
     % Gitter laden
     [tri, x, y, N_elem, N_pts] = readData(filename);
 
@@ -44,10 +43,13 @@ function [] = fem_solve_grid(filename)
     % Berechne die Eigenwerte (und Eigenvektoren)
     [EigVec,EigVal] = eigs(T*K*T.',T*D*T.',N_eigenvals,'sm');
 
-    % Stelle Eigenfunktionen graphisch dar
-    plotGridEig(tri,x,y,EigVec,diag(EigVal));
+    if (plot==1)
+        % Stelle Eigenfunktionen graphisch dar
+        plotGridEig(tri,x,y,EigVec,diag(EigVal));
+    end
+        
+    EigVals = diag(EigVal);
 
-    
     % Eigenwerte augeben
-    disp(diag(EigVal));
+    %disp(diag(EigVal));
 end
