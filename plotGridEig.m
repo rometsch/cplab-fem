@@ -10,8 +10,8 @@ function [ fig ] = plotGridEig( tri, x, y, EigVec, EigVal)
         Vec = EigVec(:,i);
         h = fill( x(tri).', y(tri).', Vec(tri).' );
         title(sprintf('%s%0.3f','\lambda = ',EigVal(i)));
-        xlabel('x-Richtung');
-        ylabel('y-Richtung');
+        xlabel('x');
+        ylabel('y');
         cb=colorbar;
         set(cb,'yticklabel',num2str(str2double(get(cb,'yticklabel')),'%0.2f'))
         colormap('jet');
